@@ -41,8 +41,89 @@ namespace AVL
 		public void eliminarHijoDerecho(){
 			this.hijoDerecho=null;
 		}
+
+		//Para agregar un elemento se va a tener que chequer la altura, para ver si hay desbalanceo o no
+
+		//Calcula la altura del arbol. Similar al retardoReenvio() del arbol binario.
+		public int alturaAVL()
+		{
+			int alturaMaxima = 0;
+			int alturaIzquierda = 0;
+			int alturaDerecha = 0;
+			int alturaTemporal = 0;
+
+			if (this.getHijoIzquierdo() == null && this.getHijoDerecho() == null)
+			{
+				return 0;
+			}
+
+			if (this.getHijoIzquierdo() != null)
+			{
+
+				alturaTemporal += 1;
+				alturaTemporal += this.getHijoIzquierdo().alturaAVL();
+				if (alturaTemporal > alturaIzquierda) alturaIzquierda = alturaTemporal;
+			}
+
+			if (this.getHijoDerecho() != null)
+			{
+				alturaTemporal = 0;
+				alturaTemporal += 1;
+				alturaTemporal += this.getHijoDerecho().alturaAVL();
+				if (alturaTemporal > alturaDerecha) alturaDerecha = alturaTemporal;
+			}
+
+			if (alturaIzquierda >= alturaDerecha) alturaMaxima = alturaIzquierda;
+			if (alturaIzquierda < alturaDerecha) alturaMaxima = alturaDerecha;
+
+			return alturaMaxima;
+		}
+
+		public bool hayDesbalanceo()
+        {
+			if (this.getHijoIzquierdo() == null && this.getHijoDerecho()==null)
+            {
+				return false;
+            }
+			else
+            {
+				int alturaIzquierda = 1;  
+				int alturaDerecha = 1;
+				
+				if (this.getHijoIzquierdo() != null)
+                {
+					alturaIzquierda += this.getHijoIzquierdo().alturaAVL();
+
+                }
+                else
+                {
+					alturaIzquierda = 0;
+
+				}
+
+                if (this.getHijoDerecho() != null)
+                {
+					alturaDerecha += this.getHijoDerecho().alturaAVL();
+                }
+                else
+                {
+					alturaDerecha = 0;
+				}
+				
+				if (alturaIzquierda>alturaDerecha)
+                {
+					return alturaIzquierda - alturaDerecha > 1;
+                }
+                else
+                {
+					return alturaDerecha - alturaIzquierda > 1;
+                }
+			}
+        }
 		
 		public void agregar(IComparable elem) {
+
+
 		}
 		
 
