@@ -42,7 +42,7 @@ namespace AVL
 			this.hijoDerecho=null;
 		}
 
-		//Para agregar un elemento se va a tener que chequer la altura, para ver si hay desbalanceo o no
+		//Para agregar un elemento se va a tener que chequear la altura, para ver si hay desbalanceo o no
 
 		//Calcula la altura del arbol. Similar al retardoReenvio() del arbol binario.
 		public int alturaAVL()
@@ -135,22 +135,20 @@ namespace AVL
 					if (this.getHijoDerecho() == null)
 					{
 						this.agregarHijoDerecho(new ArbolAVL(null));
-						
 					}
+					
 					this.getHijoDerecho().agregar(elem);
 					
 					if(this.hayDesbalanceo())
 					{
-                        
 						if (int.Parse(elem.ToString()) > int.Parse(this.hijoDerecho.dato.ToString()))
 						{
 							this.rotacionSimpleIzquierda();
-
 						}
 						
 						if (int.Parse(elem.ToString()) < int.Parse(this.hijoDerecho.dato.ToString()))
 						{
-							this.rotacionDobleIzquierda();
+							this.rotacionDobleDerecha();
 						}
 					}
 				}
@@ -159,28 +157,27 @@ namespace AVL
 					if (this.getHijoIzquierdo() == null)
 					{
 						this.agregarHijoIzquierdo(new ArbolAVL(null));
-						
 					}
+					
 					this.getHijoIzquierdo().agregar(elem);
 
-					if (this.hayDesbalanceo()) {
+					if (this.hayDesbalanceo()) 
+					{
 						if (int.Parse(elem.ToString()) < int.Parse(this.hijoIzquierdo.dato.ToString()))
 						{
 							this.rotacionSimpleDerecha();
-
 						}
 						if (int.Parse(elem.ToString()) > int.Parse(this.hijoIzquierdo.dato.ToString()))
 						{
-							this.rotacionDobleDerecha();
+							this.rotacionDobleIzquierda();
 						}
-						
 					}
 				}
 			}
 		}
 		
 		//Rotaciones
-		public void rotacionSimpleDerecha() {
+		public void rotacionSimpleDerecha() { //Cuando el insertado es mas chico que el hijo izquierdo del desbalanceado.
 
 			ArbolAVL guardarArbolDerecho = this.getHijoDerecho();                                       //Guardo todos los hijos derechos
 			IComparable nodoDesbalanceado = this.getDatoRaiz();                                         //Guardo el valor del nodo desbalanceado
@@ -196,7 +193,8 @@ namespace AVL
 			balanceo.agregarHijoIzquierdo(guardarArbolDerechoDelHijoIzquierdo);							//Recupero el subArbol derecho del hijo izquierdo
 		}
 		
-		public void rotacionSimpleIzquierda() {
+		public void rotacionSimpleIzquierda() { //Cuando el insertado es mas grande que el hijo derecho del desbalanceado.
+			
 			ArbolAVL guardarArbolIzquierdo = this.getHijoIzquierdo();                               //Guardo todos los hijos izquierdos
 			IComparable nodoDesbalanceado = this.getDatoRaiz();                                     //Guardo el valor del nodo desbalanceado
 			this.dato = this.getHijoDerecho().getDatoRaiz();                                        //El valor del hijo derecho pasa a ser el dato raiz
@@ -211,13 +209,16 @@ namespace AVL
 			balanceo.agregarHijoDerecho(guardarArbolIzquierdoDelHijoDerecho);                       //Recupero el subArbol izquierdo del hijo derecho
 		}
 		
-		public void rotacionDobleDerecha() {
+		public void rotacionDobleDerecha() {  //Cuando el insertado es mas chico que el hijo derecho del desbalanceado.
 			
+			this.getHijoDerecho().rotacionSimpleDerecha();
+			this.rotacionSimpleIzquierda();
 		}
 		
-				
-		public void rotacionDobleIzquierda() {
+		public void rotacionDobleIzquierda() { //Cuando el insertado es mas grande que el hijo izquierdo del desbalanceado.
 			
+			this.getHijoIzquierdo().rotacionSimpleIzquierda();
+			this.rotacionSimpleDerecha();
 		}
 
 		//Metodos del Arbol Binario de Busqueda

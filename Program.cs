@@ -12,19 +12,16 @@ namespace AVL
             //Comprobacion del metodo agreger y las rotaciones simples.
             ArbolAVL arbolAVL = new ArbolAVL(null);
 
-            arbolAVL.agregar(50);
-            arbolAVL.agregar(25);
-            arbolAVL.agregar(1);
-            arbolAVL.agregar(0);
-            arbolAVL.agregar(-1);
-            arbolAVL.agregar(-10);
-            arbolAVL.agregar(-20);
-            arbolAVL.agregar(75);
-            arbolAVL.agregar(100);
-            arbolAVL.agregar(125);
-            arbolAVL.agregar(150);
-            arbolAVL.agregar(175);
-
+            arbolAVL.agregar(5);
+            arbolAVL.agregar(3);
+            arbolAVL.agregar(14);
+            arbolAVL.agregar(8);
+            arbolAVL.agregar(15);
+            arbolAVL.agregar(10);
+            arbolAVL.agregar(4);
+            arbolAVL.agregar(11);
+            arbolAVL.agregar(12);
+            arbolAVL.agregar(13);
 
             //Incluye() funciona correctamente
             int dato = 2;
