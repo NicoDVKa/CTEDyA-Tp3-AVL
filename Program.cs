@@ -6,56 +6,34 @@ namespace AVL
     {
         static void Main(string[] args)
         {
-            ArbolAVL arbolAVL = new ArbolAVL(1);
-            ArbolAVL hijoIzquierdo = new ArbolAVL(2);
-            ArbolAVL hijoDerecho = new ArbolAVL(3);
-            ArbolAVL hijoDelIzquierdo = new ArbolAVL(4);
+            //Ahora si se cumplen las propiedades de los arboles AVL.
+
             
-            arbolAVL.agregarHijoIzquierdo(hijoIzquierdo);
-            arbolAVL.agregarHijoDerecho(hijoDerecho);
+            //Comprobacion del metodo agreger y las rotaciones simples.
+            ArbolAVL arbolAVL = new ArbolAVL(null);
 
-            hijoIzquierdo.agregarHijoIzquierdo(hijoDelIzquierdo);
-            hijoIzquierdo.agregarHijoDerecho(new ArbolAVL(9));
+            arbolAVL.agregar(50);
+            arbolAVL.agregar(25);
+            arbolAVL.agregar(1);
+            arbolAVL.agregar(0);
+            arbolAVL.agregar(-1);
+            arbolAVL.agregar(-10);
+            arbolAVL.agregar(-20);
+            arbolAVL.agregar(75);
+            arbolAVL.agregar(100);
+            arbolAVL.agregar(125);
+            arbolAVL.agregar(150);
+            arbolAVL.agregar(175);
 
-            hijoDelIzquierdo.agregarHijoIzquierdo(new ArbolAVL(5));
-            hijoDelIzquierdo.agregarHijoDerecho(new ArbolAVL(6));
 
-           hijoDerecho.agregarHijoDerecho(new ArbolAVL(7));
-
-            //Todavia no se cumplen las propiedades de los arboles AVL.
-
-            //Comprobacion de los metodos de los ABB
+            //Incluye() funciona correctamente
+            int dato = 2;
+            Console.WriteLine("El dato {0} esta en el ab? {1}", dato, arbolAVL.incluye(dato));
 
             Console.Write("Preorden: ");
             arbolAVL.preorden();//Funciona
             Console.WriteLine();
-            Console.Write("Inorden: ");
-            arbolAVL.inorden();//Funciona
-            Console.WriteLine();
-            Console.Write("Postorden: ");
-            arbolAVL.postorden();//Funciona
-            Console.WriteLine();
-            
-            
-            //Incluye() todavia no funciona correctamente ya que no se cumple la propiedad de orden
-            int dato = 2;
-            Console.WriteLine("El dato {0} esta en el ab? {1}", dato, arbolAVL.incluye(dato));
 
-            //Comprobacion del metodo altura()
-            Console.WriteLine("La altura del arbol AVL es de: {0}",arbolAVL.alturaAVL());
-
-            Console.WriteLine("La altura del subArbol Izquierdo es de: {0}", hijoIzquierdo.alturaAVL());
-
-            Console.WriteLine("La altura del subArbol Derecho es de: {0}", hijoDerecho.alturaAVL());
-
-           //Comprobacion del metodo hayDesbalanceo()
-            Console.WriteLine("Hay desbanlaceo en el arbol AVL? {0}",arbolAVL.hayDesbalanceo());
-            
-            Console.WriteLine("Hay desbanlaceo en el subArbol Izquierdo? {0}", hijoIzquierdo.hayDesbalanceo());
-
-            Console.WriteLine("Hay desbanlaceo en el subArbol Derecho? {0}", hijoDerecho.hayDesbalanceo());
-
-            
             Console.WriteLine("Presione un tecla para salir");
             Console.ReadKey(true);
         }

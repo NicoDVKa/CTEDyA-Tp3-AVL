@@ -121,27 +121,103 @@ namespace AVL
 			}
         }
 		
+		//Metodo agregar
 		public void agregar(IComparable elem) {
+			if (this.dato == null)
+			{
+				this.dato = elem;
+				return;
+			}
+			else
+			{
+				if (int.Parse(elem.ToString()) > int.Parse(this.dato.ToString()))
+				{
+					if (this.getHijoDerecho() == null)
+					{
+						this.agregarHijoDerecho(new ArbolAVL(null));
+						
+					}
+					this.getHijoDerecho().agregar(elem);
+					
+					if(this.hayDesbalanceo())
+					{
+                        
+						if (int.Parse(elem.ToString()) > int.Parse(this.hijoDerecho.dato.ToString()))
+						{
+							this.rotacionSimpleIzquierda();
 
+						}
+						
+						if (int.Parse(elem.ToString()) < int.Parse(this.hijoDerecho.dato.ToString()))
+						{
+							this.rotacionDobleIzquierda();
+						}
+					}
+				}
+				else
+				{
+					if (this.getHijoIzquierdo() == null)
+					{
+						this.agregarHijoIzquierdo(new ArbolAVL(null));
+						
+					}
+					this.getHijoIzquierdo().agregar(elem);
 
+					if (this.hayDesbalanceo()) {
+						if (int.Parse(elem.ToString()) < int.Parse(this.hijoIzquierdo.dato.ToString()))
+						{
+							this.rotacionSimpleDerecha();
+
+						}
+						if (int.Parse(elem.ToString()) > int.Parse(this.hijoIzquierdo.dato.ToString()))
+						{
+							this.rotacionDobleDerecha();
+						}
+						
+					}
+				}
+			}
 		}
 		
-
+		//Rotaciones
 		public void rotacionSimpleDerecha() {
-			
+
+			ArbolAVL guardarArbolDerecho = this.getHijoDerecho();                                       //Guardo todos los hijos derechos
+			IComparable nodoDesbalanceado = this.getDatoRaiz();                                         //Guardo el valor del nodo desbalanceado
+			this.dato = this.getHijoIzquierdo().getDatoRaiz();	                                        //El valor del hijo izquierdo pasa a ser el dato raiz
+			ArbolAVL guardarArbolDerechoDelHijoIzquierdo = this.getHijoIzquierdo().getHijoDerecho();    //Guardo los hijos derechos del hijo izquierdo
+			this.getHijoIzquierdo().eliminarHijoDerecho();												//Los elimino
+			ArbolAVL guardarArbolIzquierdoDelHijoIzquierdo = this.getHijoIzquierdo().getHijoIzquierdo();//Guardo los hijos izquierdos del hijo izquierdo
+			this.getHijoIzquierdo().eliminarHijoIzquierdo();                                            //Los elimino
+			ArbolAVL balanceo = new ArbolAVL(nodoDesbalanceado);                                        //Recupero el dato del nodo desbalanceado
+			balanceo.agregarHijoDerecho(guardarArbolDerecho);				                            //Recupero los hijos derechos del nodo desbalanceado
+			this.agregarHijoDerecho(balanceo);                                                          //Al nodo desbalanceado lo pongo como hijo derecho
+			this.agregarHijoIzquierdo(guardarArbolIzquierdoDelHijoIzquierdo);                           //Recupero el subArbol izquierdo del hijo izquierdo
+			balanceo.agregarHijoIzquierdo(guardarArbolDerechoDelHijoIzquierdo);							//Recupero el subArbol derecho del hijo izquierdo
 		}
 		
 		public void rotacionSimpleIzquierda() {
-		
+			ArbolAVL guardarArbolIzquierdo = this.getHijoIzquierdo();                               //Guardo todos los hijos izquierdos
+			IComparable nodoDesbalanceado = this.getDatoRaiz();                                     //Guardo el valor del nodo desbalanceado
+			this.dato = this.getHijoDerecho().getDatoRaiz();                                        //El valor del hijo derecho pasa a ser el dato raiz
+			ArbolAVL guardarArbolIzquierdoDelHijoDerecho = this.getHijoDerecho().getHijoIzquierdo();//Guardo los hijos izquierdos del hijo derecho
+			this.getHijoDerecho().eliminarHijoIzquierdo();                                          //Los elimino
+			ArbolAVL guardarArbolDerechoDelHijoDerecho = this.getHijoDerecho().getHijoDerecho();    //Guardo los hijos derechos del hijo derecho
+			this.getHijoDerecho().eliminarHijoDerecho();                                            //Los elimino
+			ArbolAVL balanceo = new ArbolAVL(nodoDesbalanceado);                                    //Recupero el dato del nodo desbalanceado
+			balanceo.agregarHijoIzquierdo(guardarArbolIzquierdo);                                   //Recupero los hijos derechos del nodo desbalanceado
+			this.agregarHijoIzquierdo(balanceo);                                                    //Al nodo desbalanceado lo pongo como hijo izquierdo
+			this.agregarHijoDerecho(guardarArbolDerechoDelHijoDerecho);                             //Recupero el subArbol derecho del hijo derecho
+			balanceo.agregarHijoDerecho(guardarArbolIzquierdoDelHijoDerecho);                       //Recupero el subArbol izquierdo del hijo derecho
 		}
 		
 		public void rotacionDobleDerecha() {
-		
+			
 		}
 		
 				
 		public void rotacionDobleIzquierda() {
-		
+			
 		}
 
 		//Metodos del Arbol Binario de Busqueda
@@ -213,7 +289,6 @@ namespace AVL
 				this.getHijoDerecho().inorden();
 			}
 		}
-
 
 		public void postorden()
 		{
